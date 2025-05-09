@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python Code Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 15px;
+      border: 1px solid #ccc;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Python Code Viewer - Week 2</h1>
+
+  <!--beginner activity-->
+
+  <h2>anagrams.py</h2>
+  <pre><code>
+def are_anagrams(str1, str2):
+    return sorted(str1) == sorted(str2)
+
+print(are_anagrams("listen", "silent"))
+print(are_anagrams("hello", "world"))  
+
+  </code></pre>
+
+
+<h2>prime.py</h2>
+  <pre><code>
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    for i in range(3, int(n**0.5) + 1, 2):
+        if n % i == 0:
+            return False
+    return True
+print(is_prime(7))
+print(is_prime(11))
+
+</code></pre>
+
+
+<h2>frequent.py</h2>
+  <pre><code>
+      from collections import Counter
+
+  def most_frequent_number(lst):
+      if not lst:
+          return None
+      count = Counter(lst)
+      return count.most_common(1)[0][0]
+
+  numbers = [1, 3, 1, 3, 2, 1]
+  print(most_frequent_number(numbers))  
+
+  </code></pre>
+
+
+<!--Task 1-->
+    <h2>crud.py</h2>
+  <pre><code>
+
+    users = [
+        {"id": 1, "name": "Alice", "email": "alice@example.com"},
+        {"id": 2, "name": "Bob", "email": "bob@example.com"},
+    ]
+
+    def add_user(user):
+        users.append(user)
+
+    def get_user_by_id(user_id):
+        for user in users:
+            if user["id"] == user_id:
+                return user
+        return None
+
+    def update_user(user_id, name=None, email=None):
+        for user in users:
+            if user["id"] == user_id:
+                if name:
+                    user["name"] = name
+                if email:
+                    user["email"] = email
+                return True
+        return False
+
+    def delete_user(user_id):
+        for user in users:
+            if user["id"] == user_id:
+                users.remove(user)
+                return True
+        return False
+
+    print("Original users:", users)
+
+    add_user({"id": 3, "name": "Chae", "email": "chae@example.com"})
+    print("After adding Chae:", users)
+
+    print("Retrieve user with ID 2:", get_user_by_id(2))
+
+    update_user(1, name="Alicia")
+    print("After updating Alice:", users)
+
+    delete_user(2)
+    print("After deleting Bob:", users)
+
+</code></pre>
+
+  <!--Task 2-->
+
+<h2>reg.py</h2>
+<pre><code>
+import re
+
+def is_valid_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(pattern, email) is not None
+
+print(is_valid_email("user@domain.com"))   
+print(is_valid_email("user@domain"))       
+print(is_valid_email("user@.com"))         
+
+  </code></pre>
+
+<!--Task 3-->
+
+<h2>credentials.py</h2>
+  <pre><code>
+import hashlib
+
+user_db = {}
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def register(username, password):
+    if username in user_db:
+        return "User already exists"
+    hashed = hash_password(password)
+    user_db[username] = hashed
+    return "Created new user"
+
+def login(username, password):
+    
+    hashed = hash_password(password)
+    if username in user_db and user_db[username] == hashed:
+        return "Login Successful"
+    return "Invalid credentials"
+
+print(register("john", "mypassword"))  
+print(login("john", "mypassword"))     
+print(login("john", "wrongpass"))     
+
+  </code></pre>
+
+
+</body>
+</html>
